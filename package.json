@@ -1,0 +1,35 @@
+{
+  "name": "releaseguard",
+  "version": "0.1.0",
+  "description": "Transparent release-readiness policy CLI",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24.0.0 <25"
+  },
+  "bin": {
+    "releaseguard": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "releaseguard.schema.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "eslint .",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run --coverage",
+    "check": "npm run lint && npm run typecheck && npm run test && npm run build"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "24.13.2",
+    "@vitest/coverage-v8": "4.1.10",
+    "eslint": "10.6.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.62.1",
+    "vitest": "4.1.10"
+  }
+}

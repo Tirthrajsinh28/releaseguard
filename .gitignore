@@ -1,0 +1,7 @@
+node_modules/
+dist/
+coverage/
+*.log
+*.tgz
+releaseguard-report.json
+releaseguard-report.txt

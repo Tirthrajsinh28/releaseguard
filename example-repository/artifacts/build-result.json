@@ -1,0 +1,5 @@
+{
+  "status": "passed",
+  "command": "npm run check",
+  "durationMs": 1250
+}

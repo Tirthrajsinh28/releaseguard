@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/releaseguard.schema.json",
+  "title": "ReleaseGuard configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "requiredFiles", "build", "coverage", "tests", "dependencies", "changelog"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "const": 1 },
+    "requiredFiles": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "build": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resultFile"],
+      "properties": { "resultFile": { "type": "string", "minLength": 1 } }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summaryFile", "minimumLines", "minimumBranches"],
+      "properties": {
+        "summaryFile": { "type": "string", "minLength": 1 },
+        "minimumLines": { "type": "number", "minimum": 0, "maximum": 100 },
+        "minimumBranches": { "type": "number", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "tests": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["junitFile"],
+      "properties": { "junitFile": { "type": "string", "minLength": 1 } }
+    },
+    "dependencies": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["auditFile", "failOnSeverity"],
+      "properties": {
+        "auditFile": { "type": "string", "minLength": 1 },
+        "failOnSeverity": { "enum": ["low", "moderate", "high", "critical"] }
+      }
+    },
+    "changelog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "requiredHeading"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "requiredHeading": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

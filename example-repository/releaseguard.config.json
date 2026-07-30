@@ -1,0 +1,20 @@
+{
+  "$schema": "../releaseguard.schema.json",
+  "version": 1,
+  "requiredFiles": ["README.md", "LICENSE", "CHANGELOG.md"],
+  "build": { "resultFile": "artifacts/build-result.json" },
+  "coverage": {
+    "summaryFile": "artifacts/coverage-summary.json",
+    "minimumLines": 80,
+    "minimumBranches": 70
+  },
+  "tests": { "junitFile": "artifacts/junit.xml" },
+  "dependencies": {
+    "auditFile": "artifacts/npm-audit.json",
+    "failOnSeverity": "high"
+  },
+  "changelog": {
+    "path": "CHANGELOG.md",
+    "requiredHeading": "## [Unreleased]"
+  }
+}

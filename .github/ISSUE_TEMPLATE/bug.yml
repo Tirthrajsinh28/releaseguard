@@ -1,0 +1,25 @@
+name: Bug report
+description: Report a reproducible parser, policy, report, or exit-code defect.
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Observed behavior
+      description: Include the command, exit code, and redacted output.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: fixture
+    attributes:
+      label: Minimal synthetic fixture
+      description: Do not attach secrets or private repository artifacts.
+    validations:
+      required: true

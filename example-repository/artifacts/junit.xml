@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="12" failures="0" errors="0" skipped="1" time="0.42">
+  <testsuite name="synthetic" tests="12" failures="0" errors="0" skipped="1" />
+</testsuites>

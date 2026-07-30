@@ -1,0 +1,62 @@
+name: ReleaseGuard CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: releaseguard-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dependency-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/dependency-review-action@v5
+
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install exact dependencies
+        run: npm ci
+
+      - name: Run lint, types, tests, coverage, and build
+        run: npm run check
+
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
+      - name: Verify ready example and JSON report
+        run: |
+          node dist/cli.js \
+            --root example-repository \
+            --format json \
+            --output releaseguard-report.json \
+            --summary "Synthetic CI example"
+
+      - name: Build package archive
+        run: npm pack
+
+      - name: Upload report and package
+        uses: actions/upload-artifact@v7
+        with:
+          name: releaseguard-artifacts
+          path: |
+            example-repository/releaseguard-report.json
+            releaseguard-*.tgz
+          if-no-files-found: error
+          retention-days: 14
